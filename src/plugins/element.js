@@ -3,7 +3,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 import Vue from 'vue'
 import { Button,Form,FormItem,Input,Message,Container,Header,Main,Aside,
 Menu,MenuItem,MenuItemGroup,Submenu,Breadcrumb,BreadcrumbItem,Card,
-  Row,Col,Table,TableColumn,Switch,Tooltip,Pagination,Dialog
+  Row,Col,Table,TableColumn,Switch,Tooltip,Pagination,Dialog,MessageBox
 } from 'element-ui'
 
 
@@ -40,3 +40,5 @@ Vue.use(Dialog)
 //这个使用情况不一样。需要把Message挂载到Vue对象中
 
 Vue.prototype.$message = Message;
+//注意这个
+Vue.prototype.$confirm = MessageBox.confirm

@@ -36,9 +36,9 @@
 
                 </el-table-column>
                 <el-table-column label="操作">
-                    <template>
-                        <el-button icon="el-icon-edit" type="primary" size="mini" @click="isShoweditDialog = false"></el-button>
-                        <el-button icon="el-icon-delete" type="danger" size="mini"></el-button>
+                    <template slot-scope="scope">
+                        <el-button icon="el-icon-edit" type="primary" size="mini" @click="showEditDialog(scope.row.id)"></el-button>
+                        <el-button icon="el-icon-delete" type="danger" size="mini"  @click="showDeleteDialog(scope.row.id)"></el-button>
                         <el-tooltip class="item" effect="dark" content="分配角色" placement="top" :enterable="false">
                             <el-button icon="el-icon-setting" type="warning" size="mini"></el-button>
                         </el-tooltip>
@@ -83,6 +83,29 @@
                 <el-button type="primary" @click="addUser">确 定</el-button>
               </span>
         </el-dialog>
+        <el-dialog
+            title="修改用户"
+            :visible.sync="isShoweditDialog"
+            width="30%" @close="editDialogClose">
+            <el-form ref="userEditform" :model="addEditFormModel" label-width="70px" :rules="addUserFormRules">
+                <el-form-item label="用户名">
+                    <el-input v-model="addEditFormModel.username" size="big" :disabled="true"></el-input>
+                </el-form-item>
+                <el-form-item label="邮箱" prop="email">
+                    <el-input v-model="addEditFormModel.email" type="email"></el-input>
+                </el-form-item>
+                <el-form-item label="手机号" prop="mobile">
+                    <el-input v-model="addEditFormModel.mobile" type="tel"></el-input>
+                </el-form-item>
+                <el-form-item>
+                </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="isShoweditDialog = false">取 消</el-button>
+                <el-button type="primary" @click="editUserSubmit">确 定</el-button>
+              </span>
+        </el-dialog>
+
     </div>
 </template>
 
@@ -123,11 +146,16 @@
                     pagesize: 10
                 },
                 isShowAddUserDialog: false,
+                isShoweditDialog: false,
+                //需要注意这里。不需要提前定义属性。直接从数据库中读有什么属性
                 addUserFormModel: {
                     username: "",
                     password: "",
                     email: "",
                     mobile: ""
+                },
+                addEditFormModel: {
+
                 },
                 addUserFormRules: {
                     //不能用name作为验证属性。不然验证name会有问题
@@ -146,7 +174,6 @@
                         {validator: validateMobile, trigger: 'blur'}
                     ],
                 },
-                isShoweditDialog: false,
             }
         },
         methods: {
@@ -203,7 +230,45 @@
                         return this.$message.error('添加用户失败')
                     }
                 });
-            }
+            },
+            async showEditDialog(id){
+                //尽量从数据库中读取信息，因为客户端很多。需要从数据库中查询到跟真实的数据
+
+                const {data:res} = await this.$http.get('users/'+id);
+                if(res.meta.status) this.addEditFormModel = res.data;
+                this.isShoweditDialog = true;
+            },
+            editDialogClose(){
+                this.$refs.userEditform.resetFields();
+            },
+            async editUserSubmit(){
+                const {data:res} = await this.$http.put('users/' + this.addEditFormModel.id,{
+                    email:this.addEditFormModel.email,
+                    mobile:this.addEditFormModel.mobile
+                });
+                this.isShoweditDialog = false;
+                console.log(res)
+                if(res.meta.status !== 200){
+                   return  this.$message.error('更新用户失败');
+                }
+                this.getUsers2();
+            },
+            showDeleteDialog(id){
+                this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(async () => {
+                    const {data:res} = await this.$http.delete('users/'+id);
+                    if(res.meta.status !== 200){
+                        return this.$message.error('删除失败')
+                    }
+                    this.$message.success('删除成功');
+                    this.getUsers2();
+                });
+
+
+            },
 
         },
 
