@@ -39,14 +39,13 @@
                             <span>{{item.authName}}</span>
                         </template>
                         <!-- 子项和父亲的属性在同级  -->
-                        <el-menu-item :index="'/' + itemy.path" v-for="itemy in item.children" :key="itemy.id" @click="menuStateSave(itemy.path)">
+                        <el-menu-item :index="'/' + itemy.path" v-for="itemy in item.children" :key="itemy.id" @click="menuStateSave('/'+itemy.path)">
                             <template slot="title">
                                 <i class="el-icon-menu"></i>
                                 <span>{{itemy.authName}}</span>
                             </template>
                         </el-menu-item>
                     </el-submenu>
-
                 </el-menu>
             </el-aside>
             <el-container>
@@ -90,16 +89,14 @@
                 const {data: res} = await this.$http.get("menus");
                 if (res.meta.status !== 200) return this.$message.error("获取菜单错误");
                 this.menus = res.data;
-                console.log(res)
             },
           toggle_collapse(){
               this.isCollapse = !this.isCollapse;
           },
           menuStateSave(path){
-              window.sessionStorage.setItem("activePath",'/'+path);
-
+              window.sessionStorage.setItem("activePath",path);
+              this.activePath = path;
          }
-
 
         },
         components: {}
