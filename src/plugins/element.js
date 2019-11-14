@@ -1,9 +1,11 @@
 import 'element-ui/lib/theme-chalk/index.css';
 
 import Vue from 'vue'
-import { Button,Form,FormItem,Input,Message,Container,Header,Main,Aside,
-Menu,MenuItem,MenuItemGroup,Submenu,Breadcrumb,BreadcrumbItem,Card,
-  Row,Col,Table,TableColumn,Switch,Tooltip,Pagination,Dialog
+import {
+    Button, Form, FormItem, Input, Message, Container, Header, Main, Aside,
+    Menu, MenuItem, MenuItemGroup, Submenu, Breadcrumb, BreadcrumbItem, Card,
+    Row, Col, Table, TableColumn, Switch, Tooltip, Pagination, Dialog, Tag, MessageBox,
+    Tree
 } from 'element-ui'
 
 
@@ -37,6 +39,9 @@ Vue.use(Switch)
 Vue.use(Tooltip)
 Vue.use(Pagination)
 Vue.use(Dialog)
+Vue.use(Tag)
+Vue.use(Tree)
 //这个使用情况不一样。需要把Message挂载到Vue对象中
 
 Vue.prototype.$message = Message;
+Vue.prototype.$confirm = MessageBox.confirm;
