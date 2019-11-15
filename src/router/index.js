@@ -7,6 +7,10 @@ const Welcome = () => import("views/home/childComps/Welcome");
 const User = () => import("views/users/User");
 const Rights = () => import("views/power/Rights");
 const Role = () => import("views/role/Role");
+const Catagory = () => import("views/goods/Catagory");
+const Params = () => import("views/goods/Params");
+
+
 Vue.use(VueRouter);
 const routes = [
 
@@ -34,6 +38,14 @@ const routes = [
         {
             path: "/roles",
             component: Role
+        },
+        {
+            path: "/categories",
+            component: Catagory
+        },
+        {
+            path: "/params",
+            component: Params
         }
 
     ]

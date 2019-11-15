@@ -36,11 +36,13 @@
 
                 </el-table-column>
                 <el-table-column label="操作">
-                    <template>
-                        <el-button icon="el-icon-edit" type="primary" size="mini" @click="isShoweditDialog = false"></el-button>
+                    <template slot-scope="scope">
+                        <el-button icon="el-icon-edit" type="primary" size="mini"
+                                   @click="isShoweditDialog = false"></el-button>
                         <el-button icon="el-icon-delete" type="danger" size="mini"></el-button>
                         <el-tooltip class="item" effect="dark" content="分配角色" placement="top" :enterable="false">
-                            <el-button icon="el-icon-setting" type="warning" size="mini"></el-button>
+                            <el-button icon="el-icon-setting" type="warning" size="mini"
+                                       @click="showChgUsrDlg(scope.row)"></el-button>
                         </el-tooltip>
                     </template>
 
@@ -83,6 +85,27 @@
                 <el-button type="primary" @click="addUser">确 定</el-button>
               </span>
         </el-dialog>
+        <el-dialog
+            title="改变用户角色"
+            :visible.sync="isShowAssignUsrDlg"
+            width="30%" @close="assignUserDialogClose">
+
+            <p>用户名：{{user.role_name}}</p>
+            <p>角色名字:{{user.username}}</p>
+            <p>
+                <el-select v-model="selectRole" placeholder="请选择">
+                    <el-option
+                        v-for="item in rolesList"
+                        :key="item.id"
+                        :label="item.roleName" :value="item.id">
+                    </el-option>
+                </el-select>
+            </p>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="isShowAssignUsrDlg = false">取 消</el-button>
+                <el-button type="primary" @click="chgUserdlgSubmit">确 定</el-button>
+              </span>
+        </el-dialog>
     </div>
 </template>
 
@@ -116,6 +139,7 @@
             return {
                 userList: [],
                 userList2: [],
+                rolesList: [],
                 tatolPage: 0,
                 queryInfo: {
                     query: '',
@@ -129,6 +153,7 @@
                     email: "",
                     mobile: ""
                 },
+                user: {},
                 addUserFormRules: {
                     //不能用name作为验证属性。不然验证name会有问题
                     username: [
@@ -147,6 +172,8 @@
                     ],
                 },
                 isShoweditDialog: false,
+                isShowAssignUsrDlg: false,
+                selectRole: '',
             }
         },
         methods: {
@@ -203,7 +230,40 @@
                         return this.$message.error('添加用户失败')
                     }
                 });
-            }
+            },
+            assignUserDialogClose() {
+                this.isShowAssignUsrDlg = false;
+                this.user = {};
+                this.selectRole = '';
+                this.rolesList = [];
+            },
+             async showChgUsrDlg(role) {
+                this.user = role;
+                const {data:res} = await this.$http.get('roles');
+                if(res.meta.status !== 200){
+                   return this.$message.error('请求角色列表错误');
+                }
+                this.rolesList = res.data;
+               console.log(this.rolesList)
+                this.isShowAssignUsrDlg = true;
+            },
+            async chgUserdlgSubmit(){
+               if(!this.selectRole){
+                  return  this.$message.error('您还没有选择角色');
+               }
+                const {data:res} =await this.$http.put(`users/${this.user.id}/role`,{
+                    rid:this.selectRole
+                });
+                console.log(res)
+               if(res.meta.status !== 200){
+                  return this.$message.error('修改用户角色失败');
+               }
+               this.getUsers2();
+               this.assignUserDialogClose();
+
+
+            },
+
 
         },
 

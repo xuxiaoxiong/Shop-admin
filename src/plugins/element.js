@@ -4,8 +4,8 @@ import Vue from 'vue'
 import {
     Button, Form, FormItem, Input, Message, Container, Header, Main, Aside,
     Menu, MenuItem, MenuItemGroup, Submenu, Breadcrumb, BreadcrumbItem, Card,
-    Row, Col, Table, TableColumn, Switch, Tooltip, Pagination, Dialog, Tag, MessageBox,
-    Tree
+    Row, Col, Table, TableColumn, Switch, Tooltip, Pagination, Dialog, Tag, MessageBox,Select,Option,
+    Tree,Cascader,Alert,Tabs,TabPane
 } from 'element-ui'
 
 
@@ -41,6 +41,12 @@ Vue.use(Pagination)
 Vue.use(Dialog)
 Vue.use(Tag)
 Vue.use(Tree)
+Vue.use(Select)
+Vue.use(Option)
+Vue.use(Cascader)
+Vue.use(Alert)
+Vue.use(Tabs)
+Vue.use(TabPane)
 //这个使用情况不一样。需要把Message挂载到Vue对象中
 
 Vue.prototype.$message = Message;
