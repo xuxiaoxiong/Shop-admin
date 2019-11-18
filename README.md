@@ -1,29 +1,9 @@
-# shop-admin
-
-## Project setup
+###  lodash使用
 ```
-npm install
+在这个项目中用到了lodash工具包。具体在reports模块中。用工具包来合并两个对象
 ```
 
-### Compiles and hot-reloads for development
+### nprogress的使用
 ```
-npm run serve
+给自己的网站添加水平加载条
 ```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
