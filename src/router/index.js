@@ -1,6 +1,5 @@
 import Vue from "vue"
 import VueRouter from "vue-router"
-
 const Home = () => import("views/home/Home");
 const Login = () => import("views/login/Login");
 const Welcome = () => import("views/home/childComps/Welcome");
@@ -9,7 +8,7 @@ const Rights = () => import("views/power/Rights");
 const Role = () => import("views/role/Role");
 const Catagory = () => import("views/goods/Catagory");
 const Params = () => import("views/goods/Params");
-
+const Orders = () => import("views/order/Orders");
 
 Vue.use(VueRouter);
 const routes = [
@@ -46,6 +45,10 @@ const routes = [
         {
             path: "/params",
             component: Params
+        },
+        {
+            path: "/orders",
+            component: Orders
         }
 
     ]

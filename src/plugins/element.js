@@ -7,7 +7,10 @@ import {
     Row, Col, Table, TableColumn, Switch, Tooltip, Pagination, Dialog, Tag, MessageBox,Select,Option,
     Tree,Cascader,Alert,Tabs,TabPane
 } from 'element-ui'
-
+//必须加.js后缀
+//必须加.js后缀
+import Timeline from "./timeline/index.js"
+import TimelineItem from "./timeline-item/index.js"
 
 Vue.use(Button)
 Vue.use(Form)
@@ -47,6 +50,8 @@ Vue.use(Cascader)
 Vue.use(Alert)
 Vue.use(Tabs)
 Vue.use(TabPane)
+Vue.use(Timeline)
+Vue.use(TimelineItem)
 //这个使用情况不一样。需要把Message挂载到Vue对象中
 
 Vue.prototype.$message = Message;
