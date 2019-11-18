@@ -1,5 +1,6 @@
 import Vue from "vue"
 import VueRouter from "vue-router"
+
 const Home = () => import("views/home/Home");
 const Login = () => import("views/login/Login");
 const Welcome = () => import("views/home/childComps/Welcome");
@@ -9,6 +10,7 @@ const Role = () => import("views/role/Role");
 const Catagory = () => import("views/goods/Catagory");
 const Params = () => import("views/goods/Params");
 const Orders = () => import("views/order/Orders");
+const Reports = () => import("views/bill/Reports");
 
 Vue.use(VueRouter);
 const routes = [
@@ -49,6 +51,10 @@ const routes = [
         {
             path: "/orders",
             component: Orders
+        },
+        {
+            path: "/reports",
+            component: Reports
         }
 
     ]
