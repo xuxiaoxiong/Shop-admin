@@ -65,7 +65,7 @@
             // 如果不合并这两个对象。那么图标会没有鼠标跟随效果。
             const option =  _.merge(res.data,this.options)
             myChart.setOption(option)
-        },git
+        },
     }
 </script>
 
