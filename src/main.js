@@ -17,6 +17,16 @@ import "./assets/css/global.css"
 // 导入字体图标
 import "./assets/fonts/iconfont.css"
 
+//使用vue-quill-editor
+import VueQuillEditor from 'vue-quill-editor'
+
+// require styles
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+
+Vue.use(VueQuillEditor);
+
 axios.defaults.baseURL = "http://127.0.0.1:8888/api/private/v1/";
 axios.interceptors.request.use(config => {
   config.headers.Authorization = window.sessionStorage.getItem("token");

@@ -26,3 +26,11 @@ html,
 .el-breadcrumb{
     font-size: 15px;
 }
+
+.el-step__title{
+    font-size: 13px;
+}
+
+.el-steps{
+    margin: 10px 0;
+}

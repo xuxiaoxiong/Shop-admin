@@ -5,7 +5,7 @@ import {
     Button, Form, FormItem, Input, Message, Container, Header, Main, Aside,
     Menu, MenuItem, MenuItemGroup, Submenu, Breadcrumb, BreadcrumbItem, Card,
     Row, Col, Table, TableColumn, Switch, Tooltip, Pagination, Dialog, Tag, MessageBox,Select,Option,
-    Tree,Cascader,Alert,Tabs,TabPane
+    Tree,Cascader,Alert,Tabs,TabPane,Steps,Step,Checkbox,Upload
 } from 'element-ui'
 //必须加.js后缀
 //必须加.js后缀
@@ -52,6 +52,10 @@ Vue.use(Tabs)
 Vue.use(TabPane)
 Vue.use(Timeline)
 Vue.use(TimelineItem)
+Vue.use(Step)
+Vue.use(Steps)
+Vue.use(Checkbox)
+Vue.use(Upload)
 //这个使用情况不一样。需要把Message挂载到Vue对象中
 
 Vue.prototype.$message = Message;
